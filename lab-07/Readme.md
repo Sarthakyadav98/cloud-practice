@@ -1,8 +1,8 @@
-# 🧪 Lab 7 — Microservices, Prometheus & CI/CD
+# Lab 7 — Microservices, Prometheus & CI/CD
 
 ---
 
-## 🎯 Objective
+## Objective
 
 * Create a microservice using Docker and Minikube
 * Monitor containers using Prometheus
@@ -10,11 +10,11 @@
 
 ---
 
-# ⚙️ Task 1 — Microservice (GPS API)
+# Task 1 — Microservice (GPS API)
 
 ---
 
-## 📄 app.js
+## app.js
 
 ```js
 const http = require('http');
@@ -36,7 +36,7 @@ console.log("GPS Service running on port 3000");
 
 ---
 
-## 📄 Dockerfile
+## Dockerfile
 
 ```dockerfile
 FROM node:18
@@ -48,7 +48,7 @@ CMD ["node", "app.js"]
 
 ---
 
-## 🔨 Build Image
+## Build Image
 
 ```bash
 eval $(minikube docker-env)
@@ -57,7 +57,7 @@ docker build -t gps-app .
 
 ---
 
-## 📄 deployment.yaml
+## deployment.yaml
 
 ```yaml
 apiVersion: apps/v1
@@ -84,7 +84,7 @@ spec:
 
 ---
 
-## 📄 service.yaml
+## service.yaml
 
 ```yaml
 apiVersion: v1
@@ -103,7 +103,7 @@ spec:
 
 ---
 
-## ▶️ Deploy
+## Deploy
 
 ```bash
 kubectl apply -f deployment.yaml
@@ -114,7 +114,7 @@ minikube service gps-service
 
 ---
 
-## 📤 Expected Output
+## Expected Output
 
 ```json
 {
@@ -126,11 +126,11 @@ minikube service gps-service
 
 ---
 
-# ⚙️ Task 2 — Prometheus Monitoring
+# Task 2 — Prometheus Monitoring
 
 ---
 
-## 📄 prometheus-deployment.yaml
+## prometheus-deployment.yaml
 
 ```yaml
 apiVersion: apps/v1
@@ -156,7 +156,7 @@ spec:
 
 ---
 
-## 📄 prometheus-service.yaml
+## prometheus-service.yaml
 
 ```yaml
 apiVersion: v1
@@ -175,7 +175,7 @@ spec:
 
 ---
 
-## ▶️ Deploy Prometheus
+## Deploy Prometheus
 
 ```bash
 kubectl apply -f prometheus-deployment.yaml
@@ -185,7 +185,7 @@ minikube service prometheus-service
 
 ---
 
-## 📊 Test in UI
+## Test in UI
 
 Query:
 
@@ -195,11 +195,11 @@ up
 
 ---
 
-# ⚙️ Task 3 — CI/CD using GitHub Actions
+# Task 3 — CI/CD using GitHub Actions
 
 ---
 
-## 📄 .github/workflows/ci.yml
+## .github/workflows/ci.yml
 
 ```yaml
 name: CI Pipeline
@@ -224,20 +224,33 @@ jobs:
       run: echo "Deploying..."
 ```
 
-Step 3: Push to GitHub 
-```bash
-    git add . 
-    git commit -m "Add CI/CD pipeline"
-    git push
-     ``` 
---- ## 
-🔹 Step 4: Verify - Go to GitHub → Actions tab - Workflow should run automatically --- ## 
+---
 
-📤 Expected Output - CI/CD pipeline runs successfully
+## Step 3: Push to GitHub
+
+```bash
+git add .
+git commit -m "Add CI/CD pipeline"
+git push
+```
 
 ---
 
-# ⚠️ Quick Fix
+## Step 4: Verify
+
+Go to GitHub → Actions tab
+
+Workflow should run automatically
+
+---
+
+## Expected Output
+
+CI/CD pipeline runs successfully
+
+---
+
+# Quick Fix
 
 ```bash
 kubectl get pods
@@ -247,7 +260,7 @@ kubectl describe pod <pod-name>
 
 ---
 
-# 💡 Quick Flow
+# Quick Flow
 
 ```text
 Build → Deploy → Service → Monitor → CI/CD
@@ -255,7 +268,7 @@ Build → Deploy → Service → Monitor → CI/CD
 
 ---
 
-# ✅ Final Result
+# Final Result
 
 * Microservice running
 * Prometheus monitoring active

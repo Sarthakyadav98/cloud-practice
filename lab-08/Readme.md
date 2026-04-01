@@ -1,7 +1,8 @@
-# 🧪 Lab 8 — Terraform, MongoDB & CI/CD
+# Lab 8 — Terraform, MongoDB & CI/CD
 
 ---
-## 🎯 Objective
+
+## Objective
 
 * Create Kubernetes resources using Terraform
 * Perform MongoDB operations
@@ -9,108 +10,110 @@
 
 ---
 
-# ⚙️ Task 1 — Terraform (Kubernetes Resource)
+# Task 1 — Terraform (Kubernetes Resource)
 
 ---
 
-## 🔹 Step 1: Install Terraform
+## Step 1: Install Terraform
 
-```bash id="l7f4b0"
+```bash
 sudo apt update
 sudo apt install -y gnupg software-properties-common
 ```
 
-```bash id="c1xq0r"
+```bash
 wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | \
 sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
 ```
 
-```bash id="jz8b8m"
+```bash
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
 https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
 sudo tee /etc/apt/sources.list.d/hashicorp.list
 ```
 
-```bash id="3s2x9f"
+```bash
 sudo apt update
 sudo apt install terraform -y
 ```
 
 ---
 
-## 🔹 Step 2: Verify
+## Step 2: Verify
 
-```bash id="o5g5dp"
+```bash
 terraform -version
 ```
 
 ---
 
-## 🔹 Step 3: Start Minikube
+## Step 3: Start Minikube
 
-```bash id="g9b1zi"
+```bash
 minikube start --driver=docker
 ```
 
 ---
 
-## 🔹 Step 4: Initialize Terraform
+## Step 4: Initialize Terraform
 
-```bash id="6b6p9o"
+```bash
 terraform init
 ```
 
 ---
 
-## 🔹 Step 5: Plan
+## Step 5: Plan
 
-```bash id="q91gqe"
+```bash
 terraform plan
 ```
 
 ---
 
-## 🔹 Step 6: Apply
+## Step 6: Apply
 
-```bash id="xejp9d"
+```bash
 terraform apply
 ```
 
 Type:
 
-```text id="z6u2j2"
+```text
 yes
 ```
 
 ---
 
-## 🔹 Step 7: Verify
+## Step 7: Verify
 
-```bash id="2wcc5i"
+```bash
 kubectl get pods
 ```
 
 ---
 
-## 🔹 Step 8: Destroy
+## Step 8: Destroy
 
-```bash id="c4m7c7"
+```bash
 terraform destroy
 ```
 
-Port forwarding - 
+Port forwarding:
+
+```bash
 kubectl port-forward pod/nginx-pod-2 8080:80
-
-
----
-
-# ⚙️ Task 2 — MongoDB Operations
+```
 
 ---
 
-## 🔹 Install MongoDB
+# Task 2 — MongoDB Operations
 
-```bash id="fzzvwn"
+---
+
+## Install MongoDB
+
+```bash
 sudo apt update
 sudo apt install -y gnupg curl
 
@@ -126,33 +129,33 @@ sudo apt install -y mongodb-org
 
 ---
 
-## 🔹 Start MongoDB
+## Start MongoDB
 
-```bash id="rph0tz"
+```bash
 sudo systemctl start mongodb
 ```
 
 ---
 
-## 🔹 Open Shell
+## Open Shell
 
-```bash id="zqlq3k"
+```bash
 mongosh
 ```
 
 ---
 
-## 🔹 Create Database
+## Create Database
 
-```js id="0c6c5u"
+```js
 use btechDB
 ```
 
 ---
 
-## 🔹 Insert Data
+## Insert Data
 
-```js id="a7pdjz"
+```js
 db.success.insertOne({
   name: "Sarthak",
   achievement: "Cloud Lab Completed",
@@ -162,43 +165,43 @@ db.success.insertOne({
 
 ---
 
-## 🔹 View Data
+## View Data
 
-```js id="lql6b9"
+```js
 db.success.find()
 ```
 
 ---
 
-## 🔹 Delete Data
+## Delete Data
 
-```js id="fj9q2c"
+```js
 db.success.deleteOne({ name: "Sarthak" })
 ```
 
 ---
 
-# ⚙️ Task 3 — CI/CD using GitHub Actions
+# Task 3 — CI/CD using GitHub Actions
 
 ---
 
-## 🔹 Step 1: Create Workflow Folder
+## Step 1: Create Workflow Folder
 
-```bash id="s1y3zy"
+```bash
 mkdir -p .github/workflows
 ```
 
 ---
 
-## 🔹 Step 2: Create Workflow File
+## Step 2: Create Workflow File
 
 File: `.github/workflows/terraform.yml`
 
 ---
 
-## 🔹 Step 3: Push Code
+## Step 3: Push Code
 
-```bash id="y2eq9v"
+```bash
 git add .
 git commit -m "Add Terraform CI/CD"
 git push
@@ -206,7 +209,7 @@ git push
 
 ---
 
-## 📤 Expected Output
+## Expected Output
 
 * Terraform creates Kubernetes resource
 * MongoDB operations executed
@@ -214,24 +217,24 @@ git push
 
 ---
 
-# ⚠️ Common Errors
+# Common Errors
 
-```bash id="0v4d2k"
+```bash
 terraform init
 kubectl get pods
 ```
 
 ---
 
-# 💡 Quick Flow
+# Quick Flow
 
-```text id="a1jz6o"
+```text
 Terraform → MongoDB → CI/CD
 ```
 
 ---
 
-# ✅ Final Result
+# Final Result
 
 * Kubernetes resource created using Terraform
 * MongoDB operations successful

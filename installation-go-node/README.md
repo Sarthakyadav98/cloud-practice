@@ -1,3 +1,7 @@
+# Installation Scripts for Go and Node.js
+
+## Install Go
+
 ```bash
 #!/bin/bash
 
@@ -5,7 +9,7 @@ set -e
 
 GO_VERSION="1.22.5"
 
-echo "📦 Installing Go $GO_VERSION..."
+echo "Installing Go $GO_VERSION..."
 
 # Download Go
 wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
@@ -28,16 +32,20 @@ fi
 source ~/.bashrc
 
 # Verify
-echo "✅ Go installed:"
+echo "Go installed:"
 go version
 ```
+
+---
+
+## Install Node.js
 
 ```bash
 #!/bin/bash
 
 set -e
 
-echo "📦 Installing Node.js via NVM..."
+echo "Installing Node.js via NVM..."
 
 # Install dependencies
 sudo apt update
@@ -55,7 +63,9 @@ nvm install --lts
 nvm use --lts
 
 # Verify
-echo "✅ Node installed:"
+echo "Node installed:"
 node -v
 npm -v
 ```
+
+---

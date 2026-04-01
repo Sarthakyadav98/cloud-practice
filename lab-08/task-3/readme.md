@@ -1,20 +1,26 @@
-🚀 Task 3 — CI/CD Pipeline (GitHub Actions + Terraform)
-🧠 What You’re Building
+# Task 3 — CI/CD Pipeline (GitHub Actions + Terraform)
+
+## What You're Building
 
 When you push code to GitHub:
 
-👉 GitHub Actions will:
+GitHub Actions will:
 
-Install Terraform
-Run terraform init
-Run terraform plan
-Run terraform apply
-Deploy your Kubernetes resource (e.g., MongoDB pod/service)
-🏗️ Step 1 — Prepare Terraform Code
+* Install Terraform
+* Run terraform init
+* Run terraform plan
+* Run terraform apply
+* Deploy your Kubernetes resource (e.g., MongoDB pod/service)
+
+---
+
+## Step 1 — Prepare Terraform Code
 
 Make sure your Terraform actually deploys MongoDB (not just nginx).
 
 Example: main.tf
+
+```hcl
 provider "kubernetes" {
   config_path = "~/.kube/config"
 }
@@ -57,27 +63,41 @@ resource "kubernetes_service" "mongodb_service" {
     type = "NodePort"
   }
 }
-🔐 Step 2 — Setup GitHub Secrets
+```
+
+---
+
+## Step 2 — Setup GitHub Secrets
 
 Go to your GitHub repo:
 
-👉 Settings → Secrets → Actions
+Settings → Secrets → Actions
 
 Add:
 
-Name	Value
-KUBE_CONFIG	Your kubeconfig file content
+| Name | Value |
+|------|-------|
+| KUBE_CONFIG | Your kubeconfig file content |
+
 Get kubeconfig:
+
+```bash
 cat ~/.kube/config
+```
 
 Copy full output → paste into secret
 
-⚙️ Step 3 — Create GitHub Actions Workflow
+---
+
+## Step 3 — Create GitHub Actions Workflow
 
 Create file:
 
-.github/workflows/terraform.yml
-✅ Full Working Workflow
+`.github/workflows/terraform.yml`
+
+Full Working Workflow:
+
+```yaml
 name: Terraform CI/CD
 
 on:
@@ -111,38 +131,62 @@ jobs:
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
-🔄 Step 4 — Push Code
+```
+
+---
+
+## Step 4 — Push Code
+
+```bash
 git add .
 git commit -m "Add CI/CD pipeline"
 git push origin main
-👀 Step 5 — Verify Pipeline
+```
+
+---
+
+## Step 5 — Verify Pipeline
 
 Go to your GitHub repo:
 
-👉 Actions tab
+Actions tab
 
 You should see:
-✔ Workflow triggered
-✔ Terraform executed
-✔ Deployment success
 
-🧪 Step 6 — Verify Kubernetes
+* Workflow triggered
+* Terraform executed
+* Deployment success
+
+---
+
+## Step 6 — Verify Kubernetes
 
 Run locally:
 
+```bash
 kubectl get pods
 kubectl get svc
+```
 
 You should see:
 
-mongodb-pod
-mongodb-service
-🔗 Step 7 — Test MongoDB (Optional)
+* mongodb-pod
+* mongodb-service
+
+---
+
+## Step 7 — Test MongoDB (Optional)
 
 Port forward:
 
+```bash
 kubectl port-forward pod/mongodb-pod 27017:27017
+```
 
 Then connect:
 
+```bash
 mongosh
+```
+
+---

@@ -1,8 +1,8 @@
-# 🧪 Lab 9 — OpenFaaS (Serverless) + CI/CD
+# Lab 9 — OpenFaaS (Serverless) + CI/CD
 
 ---
 
-## 🎯 Objective
+## Objective
 
 * Install OpenFaaS on Minikube
 * Create and deploy a serverless function
@@ -11,11 +11,11 @@
 
 ---
 
-# ⚙️ Task 1 — OpenFaaS Setup & Function Deployment
+# Task 1 — OpenFaaS Setup & Function Deployment
 
 ---
 
-## 🔹 Step 1: Start Minikube
+## Step 1: Start Minikube
 
 ```bash
 minikube start --driver=docker
@@ -23,7 +23,7 @@ minikube start --driver=docker
 
 ---
 
-## 🔹 Step 2: Install CLI Tools
+## Step 2: Install CLI Tools
 
 ```bash
 # Install faas-cli
@@ -35,7 +35,7 @@ sudo apt install -y helm
 
 ---
 
-## 🔹 Step 3: Add OpenFaaS Helm Repo
+## Step 3: Add OpenFaaS Helm Repo
 
 ```bash
 helm repo add openfaas https://openfaas.github.io/faas-netes/
@@ -44,7 +44,7 @@ helm repo update
 
 ---
 
-## 🔹 Step 4: Create Namespaces
+## Step 4: Create Namespaces
 
 ```bash
 kubectl create namespace openfaas
@@ -53,7 +53,7 @@ kubectl create namespace openfaas-fn
 
 ---
 
-## 🔹 Step 5: Install OpenFaaS
+## Step 5: Install OpenFaaS
 
 ```bash
 helm upgrade openfaas openfaas/openfaas \
@@ -61,10 +61,16 @@ helm upgrade openfaas openfaas/openfaas \
   --namespace openfaas \
   --set functionNamespace=openfaas-fn
 ```
+
+Check pods:
+
+```bash
 kubectl get pods -n openfaas
+```
+
 ---
 
-## 🔹 Step 6: Port Forward
+## Step 6: Port Forward
 
 ```bash
 kubectl port-forward -n openfaas svc/gateway 8080:8080
@@ -76,15 +82,17 @@ Open:
 http://localhost:8080
 ```
 
-
-faas-cli template store pull node
 ---
 
-## 🔹 Step 7: Login
+## Step 7: Login
+
+Get password:
 
 ```bash
 kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode
 ```
+
+Login:
 
 ```bash
 faas-cli login --username admin --password <password>
@@ -92,12 +100,18 @@ faas-cli login --username admin --password <password>
 
 ---
 
-## 🔹 Step 8: Create Function
+## Step 8: Create Function
+
+Pull templates:
 
 ```bash
 faas-cli template store pull node
 faas-cli template pull
-faas-cli new hello-fn --lang node
+```
+
+Create function:
+
+```bash
 faas-cli new hello-fn --lang node18
 ```
 
@@ -111,7 +125,15 @@ module.exports = async (event, context) => {
 
 ---
 
-## 🔹 Step 9: Deploy Function
+## Step 9: Deploy Function
+
+Set Docker environment to Minikube:
+
+```bash
+eval $(minikube docker-env)
+```
+
+Deploy:
 
 ```bash
 faas-cli up -f hello-fn.yml
@@ -119,7 +141,7 @@ faas-cli up -f hello-fn.yml
 
 ---
 
-## 🔹 Step 10: Invoke Function
+## Step 10: Invoke Function
 
 ```bash
 faas-cli invoke hello-fn
@@ -127,15 +149,21 @@ faas-cli invoke hello-fn
 
 ---
 
-## 📤 Expected Output
+## Expected Output
 
 ```
 Hello from OpenFaaS Function
 ```
 
+Optional: Test in browser:
+
+```
+http://localhost:8080/function/hello-fn
+```
+
 ---
 
-# 📊 Monitoring (Prometheus)
+# Monitoring (Prometheus)
 
 Open Prometheus UI and run:
 
@@ -143,19 +171,21 @@ Open Prometheus UI and run:
 gateway_function_invocation_total
 ```
 
----
-
-# ⚙️ Task 2 — CI/CD using Terraform + GitHub Actions
+This shows the number of times the function has been invoked.
 
 ---
 
-## 🔹 Step 1: Terraform Code
+# Task 2 — CI/CD using Terraform + GitHub Actions
+
+---
+
+## Step 1: Terraform Code
 
 Terraform will deploy and destroy function using faas-cli.
 
 ---
 
-## 🔹 Step 2: GitHub Workflow
+## Step 2: GitHub Workflow
 
 Create folder:
 
@@ -165,7 +195,7 @@ mkdir -p .github/workflows
 
 ---
 
-## 🔹 Step 3: Push to GitHub
+## Step 3: Push to GitHub
 
 ```bash
 git add .
@@ -175,7 +205,7 @@ git push
 
 ---
 
-## 📤 Expected Output
+## Expected Output
 
 * Function deployed using Terraform
 * Function destroyed automatically
@@ -183,7 +213,7 @@ git push
 
 ---
 
-# ⚠️ Quick Fix
+# Quick Fix
 
 ```bash
 kubectl get pods -n openfaas
@@ -192,7 +222,7 @@ kubectl logs <pod-name> -n openfaas
 
 ---
 
-# 💡 Quick Flow
+# Quick Flow
 
 ```
 Install → Deploy Function → Invoke → Monitor → CI/CD
@@ -200,7 +230,7 @@ Install → Deploy Function → Invoke → Monitor → CI/CD
 
 ---
 
-# ✅ Final Result
+# Final Result
 
 * OpenFaaS installed
 * Function deployed and executed

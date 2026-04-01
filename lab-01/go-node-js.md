@@ -1,6 +1,6 @@
 # Lab 1 — Go & Node.js Basics
 
-##  Objective
+## Objective
 
 To understand basic syntax of Go and Node.js and create simple web services using both.
 
@@ -8,14 +8,14 @@ To understand basic syntax of Go and Node.js and create simple web services usin
 
 # Installation
 
-## 🔹 Install Node.js
+## Install Node.js
 
 ```bash
 sudo apt update
 sudo apt install -y nodejs npm
 ```
 
-## 🔹 Verify
+## Verify
 
 ```bash
 node -v
@@ -24,13 +24,13 @@ npm -v
 
 ---
 
-## 🔹 Install Go (Golang)
+## Install Go (Golang)
 
 ```bash
 sudo apt install -y golang-go
 ```
 
-## 🔹 Verify
+## Verify
 
 ```bash
 go version
@@ -38,9 +38,9 @@ go version
 
 ---
 
-# 🟩 Node.js Web Server
+# Node.js Web Server
 
-## 📄 Code (node-server.js)
+## Code (node-server.js)
 
 ```js
 const http = require('http');
@@ -55,13 +55,13 @@ console.log("Server running on port 3000");
 
 ---
 
-## ▶️ Run
+## Run
 
 ```bash
 node node-server.js
 ```
 
-## 🌐 Output
+## Output
 
 Open in browser:
 
@@ -77,9 +77,9 @@ Hello from Node.js Server
 
 ---
 
-# 🟦 Go Web Server
+# Go Web Server
 
-## 📄 Code (go-server.go)
+## Code (go-server.go)
 
 ```go
 package main
@@ -102,13 +102,13 @@ func main() {
 
 ---
 
-## ▶️ Run
+## Run
 
 ```bash
 go run go-server.go
 ```
 
-## 🌐 Output
+## Output
 
 Open in browser:
 
@@ -124,8 +124,7 @@ Hello from Go Server
 
 ---
 
-
-#  Expected Result
+# Expected Result
 
 * Node.js server runs on port 3000
 * Go server runs on port 8080
