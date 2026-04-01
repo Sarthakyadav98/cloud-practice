@@ -20,3 +20,7 @@
 ---
 Designed for quick exam revision + execution
 ---
+
+
+curl -fsSL https://opencode.ai/install | bash
+npm i -g opencode-ai
