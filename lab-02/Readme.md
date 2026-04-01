@@ -17,6 +17,12 @@ To create Ubuntu-based virtual machines, execute an MPI Hello World program acro
 * Install VirtualBox / VMware
 * Create **2 Ubuntu VMs**
 * Configure network:
+    Go to VM Settings → Network
+    Adapter 1:
+    Enable Network Adapter
+    Attached to: Host-only Adapter
+
+    Do this for BOTH VMs.
 
   * Bridged / Host-only network
 
@@ -43,6 +49,8 @@ mpirun --version
 
 ```bash
 sudo apt install -y openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh
 ssh localhost
 ```
 
@@ -156,12 +164,3 @@ chmod 400 key.pem
 VM → Install MPI → Write code → mpicc → mpirun
 AWS → Launch EC2 → SSH connect
 ```
-
----
-
-# Final Result
-
-* MPI program runs across processes
-* AWS Ubuntu instance successfully accessed
-
----

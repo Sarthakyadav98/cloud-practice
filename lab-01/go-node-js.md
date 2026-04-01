@@ -1,4 +1,4 @@
-# 🧪 Lab 1 — Go & Node.js Basics
+# Lab 1 — Go & Node.js Basics
 
 ##  Objective
 

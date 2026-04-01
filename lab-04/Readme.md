@@ -16,6 +16,14 @@ To explore Docker commands, create a custom Docker image using a Dockerfile, and
 sudo apt update
 sudo apt install -y docker.io
 ```
+OR 
+
+```bash
+chmod +x install.sh
+sudo ./install.sh
+newgrp docker
+docker --version
+```
 
 ---
 
@@ -27,21 +35,6 @@ sudo systemctl enable docker
 ```
 
 ---
-
-## Verify Installation
-
-```bash
-docker --version
-```
-
----
-
-## Run without sudo (optional)
-
-```bash
-sudo usermod -aG docker $USER
-newgrp docker
-```
 
 ---
 
