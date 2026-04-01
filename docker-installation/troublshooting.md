@@ -1,5 +1,14 @@
 ## Clear old configs
 
+
+```bash
+chmod +x install.sh
+sudo ./install.sh
+newgrp docker
+docker --version
+```
+
+
 ```bash
 sudo rm -rf /var/lib/docker
 sudo rm -rf /var/lib/containerd
